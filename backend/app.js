@@ -10,7 +10,7 @@ const userRoutes = require('./routes/user');
 //  création d'une constante ou on appelle la methode express() pour cree l'app
 const app = express();
 
-require('dotenv').config();
+const dotenv = require("dotenv").config();
 
 
 
