@@ -1,9 +1,12 @@
 // on importe express
-const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const helmet = require('helmet');
+var cookieSession = require('cookie-session')
 const rateLimit = require('express-rate-limit');
+const { xss } = require('express-xss-sanitizer');
+
+const express = require('express');
 
 const sauceRoutes = require('./routes/sauceRoutes');
 const userRoutes = require('./routes/user');
@@ -12,7 +15,13 @@ const app = express();
 
 const dotenv = require("dotenv").config();
 
+app.use(cookieSession({
+  name: 'session',
+  keys: [process.env.CLE_COOKIE],
 
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
+}))
 
 mongoose.connect(`mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_CLUSTER}.mongodb.net/?retryWrites=true&w=majority`,
   { useNewUrlParser: true,
@@ -29,7 +38,7 @@ const limiter = rateLimit({
   message: "Trop de requêtes venant de cette adresse IP"
 });
 
-app.use(limiter);
+
 
 
 app.use((req, res, next) => {
@@ -39,8 +48,8 @@ app.use((req, res, next) => {
     next();
   });
 
-
-  
+  app.use(limiter);
+  app.use(xss());
   app.use('/images', express.static(path.join(__dirname, 'images')));
   app.use(helmet());
   app.use('/api/sauces', sauceRoutes);
