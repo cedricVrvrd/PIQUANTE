@@ -64,6 +64,7 @@ app.use((req, res, next) => {
     next();
   });
 
+  app.use('/images', express.static(path.join(__dirname, 'images')));
 
   // securité
   app.use(limiter);
@@ -71,7 +72,6 @@ app.use((req, res, next) => {
   app.use(helmet());
 
   // routes
-  app.use('/images', express.static(path.join(__dirname, 'images')));
   app.use('/api/sauces', sauceRoutes);
   app.use('/api/auth', userRoutes);
   
