@@ -1,11 +1,12 @@
+// requires
 const express = require('express');
 const router = express.Router();
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
-
-
 const sauceCtrl = require('../controllers/sauceControllers');
 
+
+// routes du CRUD, renforcée par middlewware auth, et multer pour la gestion des fichiers
 router.get('/', auth, sauceCtrl.getAllSauce)
 
 router.post('/', auth, multer, sauceCtrl.createSauce);

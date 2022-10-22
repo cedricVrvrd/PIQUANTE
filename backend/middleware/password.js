@@ -1,20 +1,19 @@
-var passwordValidator = require('password-validator');
+// require
+const passwordValidator = require('password-validator');
 
-// Create a schema
-var passwordSchema = new passwordValidator();
-
-// Add properties to it
+// Création d'un schema et definition des attributs necssaires
+const passwordSchema = new passwordValidator();
 passwordSchema
-.is().min(8)                                    // Minimum length 8
-.is().max(50)                                  // Maximum length 50
-.has().uppercase(2)                             // Must have  2uppercase letters
-.has().lowercase(2)                             // Must have 2 lowercase letters
-.has().digits(2)                                // Must have at least 2 digits
-.has().symbols(2)                               // Must have at least 2 symbols
-.has().not().spaces()                          // Should not have spaces
+.is().min(8)                                    // 8 caractères min
+.is().max(50)                                  // max 50 caracteres
+.has().uppercase(2)                             // 2 minuscules min
+.has().lowercase(2)                             // 2 majuscules min
+.has().digits(2)                                // 2 chiffres minimum
+.has().symbols(2)                               // 2 symbols mini
+.has().not().spaces()                          // pas d'espaces
 
 
-// verification du password par rapoort au schema définit
+// verification du password par rapport au schema définit, si ok, next
 module.exports = (req, res, next) => {
     if(passwordSchema.validate(req.body.password)){
         console.log("mot de passe valide")
