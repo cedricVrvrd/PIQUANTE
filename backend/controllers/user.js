@@ -51,6 +51,7 @@ exports.signup = (req, res, next) => {
                     }
                     res.status(200).json({
                         userId: user._id,
+                        // on appelle la fonction sign de jwt, on crypt l'user_id pour eviter qu'un autre user modifie le fichier
                         token: jwt.sign(
                             { userId: user._id },
                             process.env.CLE_TOKEN,

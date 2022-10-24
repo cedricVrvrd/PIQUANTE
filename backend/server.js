@@ -36,6 +36,8 @@ const errorHandler = error => {
   }
 };
 
+// creation du serveur. La methide create server prend en argument la fonction
+// qui sera appelée à chaque requête, ici les fonction sont dans app.js
 const server = http.createServer(app);
 
 server.on('error', errorHandler);
