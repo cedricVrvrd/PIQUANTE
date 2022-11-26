@@ -1,3 +1,7 @@
+#Projet 4 de la formation Openclassrooms, céation d'une API.
+
+Utilisation de NodeJs, Express et MongoDB? sécurisation des données grace aux normes OSWAP
+
 # HotTakes
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
